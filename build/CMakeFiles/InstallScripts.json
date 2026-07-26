@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"D:/obillo/Desktop/0721posd/build/cmake_install.cmake",
+		"D:/obillo/Desktop/0721posd/build/_deps/googletest-build/cmake_install.cmake",
+		"D:/obillo/Desktop/0721posd/build/_deps/googletest-build/googlemock/cmake_install.cmake",
+		"D:/obillo/Desktop/0721posd/build/_deps/googletest-build/googletest/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
