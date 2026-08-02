@@ -18,19 +18,21 @@ enum class Season{
 
 class SprayPlan : public SprayPlanPrototype{
 private: 
-    string planName;
-    string cropName;
-    Season season;
-    unique_ptr<Fertilizer> fertilizer;
-    unique_ptr<Pesticide> pesticide;
-    unique_ptr<SprayConfiguration> configuration;
-    vector<string> droneRoute;
-    vector<string> safetyWarnings;
-    vector<int> executionHours;
-    bool requiresWeatherCheck;
-    bool requiresManagerApproval;
+    string _planName;
+    string _cropName;
+    Season _season;
+    unique_ptr<Fertilizer> _fertilizer;
+    unique_ptr<Pesticide> _pesticide;
+    unique_ptr<SprayConfiguration> _configuration;
+    vector<string> _droneRout = {};
+    vector<string> _safetyWarnings = {};
+    vector<int> _executionHours = {};
+    bool _requiresWeatherCheck = false;
+    bool _requiresManagerApproval = false;
 public:
     SprayPlan(string planName, string cropName, Season season, unique_ptr<Fertilizer> fertilizer, unique_ptr<Pesticide> pesticide,unique_ptr<SprayConfiguration> configuration);
+    SprayPlan(const SprayPlan& other);
+    SprayPlan& operator=(const SprayPlan& other);
     unique_ptr<SprayPlanPrototype> clone() const override;
     void addRoute(const string& route);
     void removeRoute(const string& route);
