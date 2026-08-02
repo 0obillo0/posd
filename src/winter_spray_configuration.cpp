@@ -20,5 +20,5 @@ string WinterSprayConfiguration::getConfiguration() const{
     return _configuration;
 }
 unique_ptr<SprayConfiguration> WinterSprayConfiguration::clone() const{
-    return make_unique<SprayConfiguration>(*this);
+    return make_unique<WinterSprayConfiguration>(*this);
 }

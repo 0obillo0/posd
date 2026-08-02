@@ -17,5 +17,5 @@ string SpringPesticide::getDescription() const{
     return _descrption;
 }
 unique_ptr<Pesticide> SpringPesticide::clone() const{
-    return make_unique<Pesticide>(*this);
+    return make_unique<SpringPesticide>(*this);
 }

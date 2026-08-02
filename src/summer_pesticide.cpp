@@ -17,5 +17,5 @@ string SummerPesticide::getDescription() const{
     return _descrption;
 }
 unique_ptr<Pesticide> SummerPesticide::clone() const{
-    return make_unique<Pesticide>(*this);
+    return make_unique<SummerPesticide>(*this);
 }

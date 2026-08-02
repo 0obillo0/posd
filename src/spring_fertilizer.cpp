@@ -5,7 +5,6 @@ using namespace std;
 
 
 SpringFertilizer::SpringFertilizer(const string& name, double ratio,const string& descrption): _name(name), _ratio(ratio), _descrption(descrption){
-
 }
 string SpringFertilizer::getName() const{
     return _name;
@@ -17,5 +16,5 @@ string SpringFertilizer::getDescription() const{
     return _descrption;
 }
 unique_ptr<Fertilizer> SpringFertilizer::clone() const{
-    return make_unique<Fertilizer>(*this);
+    return make_unique<SpringFertilizer>(*this);
 }
