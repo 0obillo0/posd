@@ -35,8 +35,23 @@ SprayPlan::SprayPlan(const SprayPlan& other)
 
     }
 SprayPlan& SprayPlan::operator=(const SprayPlan& other){
+    if(this != &other){
+        _planName = other._planName;
+        _cropName = other._cropName;
+        _season = other._season;
+        _droneRout = other._droneRout;
+        _safetyWarnings = other._safetyWarnings;
+        _executionHours = other._executionHours;
+        _requiresWeatherCheck = other._requiresWeatherCheck;
+        _requiresManagerApproval = other._requiresManagerApproval;
 
+        _fertilizer = other._fertilizer ? other._fertilizer->clone() : nullptr;
+        _pesticide = other._pesticide ? other._pesticide->clone() : nullptr;
+        _configuration = other._configuration ? other._configuration->clone() : nullptr;
+    }
+    return *this;
 }
+
 unique_ptr<SprayPlanPrototype> SprayPlan::clone() const{
     return make_unique<SprayPlan>(*this);
 }
@@ -67,6 +82,15 @@ void SprayPlan::removeExecutionHour(int hour){
         _executionHours.erase(it);
     }
 }
+
+void SprayPlan::setPlanName(const string name){
+    _planName = name;
+}
+
+void SprayPlan::setRequiresManagerApproval(const bool managerApproval){
+    _requiresManagerApproval = managerApproval;
+}
+
 void SprayPlan::printPlan() const{
     cout << "planName: " << _planName << "\n";
     cout << "cropName: " << _cropName << "\n";
@@ -88,7 +112,7 @@ void SprayPlan::printPlan() const{
     }
     
     cout << "Requires Weather Check: " << (_requiresWeatherCheck ? "yes" :"no") << "\n";
-    cout << "Requires Manager Approval: " << (_requiresManagerApproval ? "yes" :"no") << _planName << "\n";
+    cout << "Requires Manager Approval: " << (_requiresManagerApproval ? "yes" :"no") << "\n";
 
 
 }

@@ -42,5 +42,7 @@ public:
     void removeExecutionHour(int hour);
     void printPlan() const;
 
+    void setPlanName(const string name);
+    void setRequiresManagerApproval(const bool managerApproval);
 };
 #endif

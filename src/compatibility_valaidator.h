@@ -10,7 +10,7 @@ using namespace std;
 
 class CompatibilityValaidator{
 public:
-    bool validateCompatibility(const Fertilizer& fertilizer, const Pesticide& pesticide, const SprayConfiguration& configuration);
+    static bool validateCompatibility(const Fertilizer& fertilizer, const Pesticide& pesticide, const SprayConfiguration& configuration);
 };
 
 #endif

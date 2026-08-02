@@ -14,7 +14,7 @@ private:
     double _flightHeight;
     string _configuration; 
 public:
-    SpringSprayConfiguration(double sprayVolume, int sprayIntervalDays, double flightHeight, const string&  configuration);
+    SpringSprayConfiguration(double sprayVolume = 0.0, int sprayIntervalDays = 0, double flightHeight = 0.0 , const string&  configuration="spring");
     double getSprayVolume() const override;
     int getSprayIntervalDays() const override;
     double getFlightHeight() const override;

@@ -12,7 +12,7 @@ private:
     double _ratio;
     string _descrption; 
 public:
-    SummerFertilizer(const string& name, double ratio,const string& descrption);
+    SummerFertilizer(const string& name = "summer", double ratio = 0.0,const string& descrption = "");
     string getName() const override;
     double getRecommendedRatio() const override;
     string getDescription() const override;

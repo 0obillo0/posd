@@ -9,8 +9,8 @@ bool CompatibilityValaidator::validateCompatibility(const Fertilizer& fertilizer
     string pName = pesticide.getName();
     string cName = configuration.getConfiguration();
 
-    bool isSpring = (fName.find("Spring") != string::npos) && (pName.find("Spring") != string::npos) && (cName.find("Spring") != string::npos);
-    bool isSummer = (fName.find("Summer") != string::npos) && (pName.find("Summer") != string::npos) && (cName.find("Summer") != string::npos);
-    bool isWinter = (fName.find("Winter") != string::npos) && (pName.find("Winter") != string::npos) && (cName.find("Winter") != string::npos);
+    bool isSpring = (fName.find("spring") != string::npos) && (pName.find("spring") != string::npos) && (cName.find("spring") != string::npos);
+    bool isSummer = (fName.find("summer") != string::npos) && (pName.find("summer") != string::npos) && (cName.find("summer") != string::npos);
+    bool isWinter = (fName.find("winter") != string::npos) && (pName.find("winter") != string::npos) && (cName.find("winter") != string::npos);
     return isSpring || isSummer || isWinter;
 }

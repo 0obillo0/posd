@@ -14,7 +14,7 @@ private:
     double _flightHeight;
     string _configuration; 
 public:
-    SummerSprayConfiguration(double sprayVolume, int sprayIntervalDays, double flightHeight, const string&  configuration);
+    SummerSprayConfiguration(double sprayVolume = 0.0, int sprayIntervalDays = 0, double flightHeight = 0.0 , const string&  configuration="summer");
     double getSprayVolume() const override;
     int getSprayIntervalDays() const override;
     double getFlightHeight() const override;
