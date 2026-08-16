@@ -23,10 +23,27 @@
 #include"crop_field.h"
 #include"field_iterator.h"
 
+#include"farm_scheduler.h"
+#include"drone_system.h"
+#include"irrigation_system.h"
+#include"fertilize_system.h"
+#include"harvest_system.h"
+#include"sensor_system.h"
+#include"spray_command.h"
+#include"irrigation_command.h"
+#include"fertilize_command.h"
+#include"harvest_command.h"
+#include"sensor_command.h"
+#include"macro_command.h"
+#include"farm_display.h"
+#include"manager_console.h"
+#include"mobile_app.h"
+#include"audit_log.h"
+
 
 int main(){
     
-
+    cout << "----------------------------------------------" << endl;
     cout << "q1" << endl;
     Crop cabbage("cabbage", CropType::LeafVegetable, 12.5);
     Crop strawberry("strawberry", CropType::Fruit, 6.0);
@@ -55,7 +72,7 @@ int main(){
     fruitFactory.prepareAndApplyMaterial(apple);
     teaFactory.prepareAndApplyMaterial(tea);
 
-
+    cout << "----------------------------------------------" << endl;
     cout << "q2" << endl;
     SpringMaterialFactory springFactory;
     SummerMaterialFactory summerFactory;
@@ -128,7 +145,8 @@ int main(){
 
     cout << "orginal plan:"<< static_cast<const void*>(orginPlan) << "\n" ;
     cout << "after plan:"<< static_cast<const void*>(organicStrawberryPlan) << "\n" ;
-
+    
+    cout << "----------------------------------------------" << endl;
     cout << "q3" << endl;
     SpringSprayConfiguration config(2.55,7,5.0,"spring");
     ModernDrone modernDrone;
@@ -204,11 +222,65 @@ int main(){
 
         legacyIterator->next();
     }
+    cout << "----------------------------------------------" << endl;
+    cout << "q4" << endl;
+    
+    FarmScheduler& scheduler = FarmScheduler::instance();
 
-    cout << "q4" << endl;   
+    DroneSystem droneSystem;
+    IrrigationSystem irrigationSystem;
+    HarvestSystem harvestSystem;
+    SensorSystem sensorSystem;
+    FertilizeSystem fertilizeSystem;
+
+    auto sprayCommand = make_unique<SprayCommand>(&droneSystem);
+    auto harvestCommand = make_unique<HarvestCommand>(&harvestSystem);
+    auto sensorCommand = make_unique<SensorCommand>(&sensorSystem);
+
+    auto morningRoutine = make_unique<MacroCommand>("Morning Routine");
+    morningRoutine->addCommand(make_unique<SprayCommand>(&droneSystem));
+    morningRoutine->addCommand(make_unique<SensorCommand>(&sensorSystem));
+    morningRoutine->addCommand(make_unique<IrrigationCommand>(&irrigationSystem));
+    morningRoutine->addCommand(make_unique<FertilizeCommand>(&fertilizeSystem));
+
+    FarmDisplay farmDisplay;
+    ManagerConsole managerConsole;
+    MobileAPP mobileAPP;
+    AuditLog auditLog;
+
+    NotificationCenter& notificationCenter = scheduler.getNotificationCenter();
+
+    notificationCenter.attach(&farmDisplay);
+    notificationCenter.attach(&managerConsole);
+    notificationCenter.attach(&mobileAPP);
+    notificationCenter.attach(&auditLog);
+
+    scheduler.summit(move(morningRoutine));
+    scheduler.summit(move(harvestCommand));
+    scheduler.summit(move(sensorCommand));
+
+    cout << "\nRun All Command\n";
+    scheduler.runALL();
+
+    cout << "\nUndo\n";
+    scheduler.undo();
+
+    cout << "\nRedo\n";
+    scheduler.redo();
+
+    cout << "\nDetach MobileAPP\n";
+    notificationCenter.detach(&mobileAPP);
+
+    auto harvestCommand2 = make_unique<HarvestCommand>(&harvestSystem);
+    scheduler.summit(move(harvestCommand2));
+    scheduler.runALL();
+
+    cout << "----------------------------------------------" << endl;
     cout << "q5" << endl;
+    
+    cout << "----------------------------------------------" << endl;
     cout << "q6" << endl;
-    cout << "q7" << endl;        
+    
 
     return 0;
 }
