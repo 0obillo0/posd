@@ -1,0 +1,10 @@
+#include"green_tea_prepartion.h"
+#include<iostream>
+
+void GreenTeaPrepartion::prepareBase(){
+    cout << "Prepare Green tea base" << "\n";
+}
+
+void GreenTeaPrepartion::addMainIngredient(){
+    cout << "Add Green tea leaves" << "\n";
+}

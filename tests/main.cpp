@@ -40,6 +40,13 @@
 #include"mobile_app.h"
 #include"audit_log.h"
 
+#include"concreted_drink_builder.h"
+#include"drink_director.h"
+#include"fruit_tea_prepartion.h"
+#include"fresh_fruit_decorator.h"
+#include"honey_decorator.h"
+#include"cheese_foam_decorator.h"
+
 
 int main(){
     
@@ -277,7 +284,31 @@ int main(){
 
     cout << "----------------------------------------------" << endl;
     cout << "q5" << endl;
-    
+    ConcreteDrinkBuilder builder;
+    DrinkDirector director;
+
+    auto blackTea = director.makeStandardBlackTea(builder);
+    cout << "Standard Black Tea" << "\n";
+    cout << "Description: " << blackTea->getDescrptionn() << "\n";
+    cout << "Price: " << blackTea->getPrice() << "\n";
+    cout << "Calories: " << blackTea->getCalories() << "\n";
+
+    auto fruitTea = builder.setType(DrinkType::FruitTea).setSize(DrinkSize::Medium).setSugar(SugarLevel::QuarterSugar).setIce(IceLevel::LessIce).build();
+
+    cout << "Fruit Tea preparation" << "\n";
+
+    FruitTeaPrepartion preparation;
+    preparation.prepare();
+
+    fruitTea = make_unique<FreshFruitDecorator>(move(fruitTea));
+    fruitTea = make_unique<HoneyDecorator>(move(fruitTea));
+    fruitTea = make_unique<CheeseFoamDecorator>(move(fruitTea));
+
+    cout << "Final Fruit Tea" << "\n";
+    cout << "Description: " << fruitTea->getDescrptionn() << "\n";
+    cout << "Price: " << fruitTea->getPrice() << "\n";
+    cout << "Calories: " << fruitTea->getCalories() << "\n";
+
     cout << "----------------------------------------------" << endl;
     cout << "q6" << endl;
     
